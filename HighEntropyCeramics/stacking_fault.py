@@ -30,7 +30,7 @@ slip_systems = [
 
 compo_list = [
     'Ti', 'Zr', 'Nb', 'Ta',
-    'Ti-Zr-Nb-Ta',
+#    'Ti-Zr-Nb-Ta',
 ]
 a2 = 0.0
 
