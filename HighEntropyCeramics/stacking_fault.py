@@ -30,7 +30,7 @@ slip_systems = [
 
 compo_list = [
     'Ti', 'Zr', 'Nb', 'Ta',
-    'Ti-Zr-Nb-Ta'
+#    'Ti-Zr-Nb-Ta',
 ]
 a2 = 0.0
 
@@ -68,6 +68,7 @@ for compo in compo_list:
                                                     elem_frac_site=elem_frac_site, elem_list=elem_list)
             else:
                 stru_fault_solidsolu = stru_fault
+                stru_fault_solidsolu['Ti'] = compo
 
             selective_dynamics = poscar_fix_top_bottom(stru_fault_solidsolu)
             fault_sys_poscar = Poscar(structure=stru_fault_solidsolu, selective_dynamics=selective_dynamics)
