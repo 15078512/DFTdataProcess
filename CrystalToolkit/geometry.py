@@ -13,6 +13,7 @@ def bond_length_statis(structure):
     '''
     Calculated some bond length statistics values in the structure
     the nearest atoms pairs are determined using pymatgen CrystalNN module
+    EconNN BrunnerNN_real do not work well
 
     Args:
         structrue: pymatgen structure

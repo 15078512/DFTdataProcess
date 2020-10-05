@@ -43,15 +43,17 @@ for anion in anions:
         for slip_sys in slip_systems:
             hkl, a1vect_uvw, a2vect_uvw = slip_sys.values()
             sizemults = [1, 1, 4]
+            a1_max, nstep = 0.25, 11
+            if a1vect_uvw == [1, 1, -2]:
+                a1_max, nstep = 0.5, 21
+            if len(cation) > 2:
+                a1_max, nstep = 2, 21
 
             for a1 in np.linspace(0, a1_max, nstep):
                 # every time stru should be built
                 # otherwise it seems to be changed by the subroutine 
                 # probably consider to use istructrue?
                 if len(cation) < 3:
-                    a1_max, nstep = 0.25, 11
-                    if a1vect_uvw == [1, 1, -2]:
-                        a1_max, nstep = 0.5, 21
                     stru = Structure.from_spacegroup('Fm-3m', Lattice.cubic(cations[cation]),
                                                 [cation, anion],[[0.5, 0.5, 0.5], [0, 0, 0]])
                     stru_fault = stacking_fault_generation(structure=stru, sizemults=sizemults, 
@@ -59,7 +61,6 @@ for anion in anions:
                                                     a2vect_uvw=a2vect_uvw)
                 else:
                     sizemults = [x1 * x2 for x1, x2 in zip(sizemults, [2,2,1])]
-                    a1_max, nstep = 2, 21
                     hec_elems = cation.split('-')
                     # pymatgen seems not accept fraction in the from_spacegroup method
                     # only this can be done stru['X'] = 'X0.5Y0.5', so use hec_elems[0]
@@ -79,13 +80,13 @@ for anion in anions:
 
                 compo_name = cation + '-' + anion
                 if math.isclose(a1, 0.0):
-                    dir = compo_name \
+                    dir = compo_name + '_' \
+                            + '_'.join([''.join(map(str, hkl)), 'plane'])
+                else:
+                    dir = compo_name + '_' \
                             + '_'.join([''.join(map(str, hkl)), 'plane', 
                                         ''.join(map(str, a1vect_uvw))]) \
                             + '_' + format(a1, '.2f')
-                else:
-                    dir = compo_name \
-                            + '_'.join([''.join(map(str, hkl)), 'plane'])
 
                 if not os.path.isdir(dir):
                     os.mkdir(dir)
