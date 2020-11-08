@@ -1,4 +1,3 @@
-
 '''
 2020.09.05
 Tried:
@@ -28,17 +27,19 @@ list, and it works well
 import os
 from pymatgen.io.ase import AseAtomsAdaptor
 from ase.io.espresso import read_espresso_out
+
 from CrystalToolkit.geometry import planar_structure_normalization, \
                                     change_lattice_constants, \
                                     multiple_structure_match
 
-calc_dir = '/data/scratch/exw735/2dnets_row3_n3'
+
+calc_dir = '/data/scratch/exw735/pwscf.output/'
 not_planar_list = []
 not_run_list = []
 stru_list = {}
 
 for dir in os.listdir(calc_dir):
-    pw_out = calc_dir + '/' + dir + '/vcrl.out'
+    pw_out = calc_dir + dir
     strus_ase = read_espresso_out(pw_out)
     if strus_ase is not None:
         # strus_ase is a one-item list
@@ -63,10 +64,10 @@ for dir in os.listdir(calc_dir):
     else:
         not_run_list.append(dir)
 
-with open ('/data/scratch/exw735/not_planar', 'a+') as f:
+with open ('/data/scratch/exw735/not_planar', 'w') as f:
     for item in not_planar_list:
         f.write("%s\n" % item)
 
-with open ('/data/scratch/exw735/not_run', 'a+') as f:
+with open ('/data/scratch/exw735/not_run', 'w') as f:
     for item in not_run_list:
         f.write("%s\n" % item)
