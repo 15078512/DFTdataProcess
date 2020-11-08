@@ -124,8 +124,7 @@ def planar_structure_normalization(structure):
     '''
     This function does the following:
         1. check whether the structure is planar using coordniates standard deviation
-        2. make vacuum layer in the c-direction
-        3. move the planar layer to the center of c-direction
+        2. move the planar layer to the center of c-direction
 
     Args:
         structure: pymatgen structure

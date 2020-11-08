@@ -144,7 +144,7 @@ def merge_period_cond_atoms_2d(img, coords, x_start, y_start, x_latt, y_latt,
     return x_latt, y_latt, coords
 
 
-def write_image_to_poscar_2d(image_file, x_start, y_start, x_latt, y_latt, coords
+def write_image_to_poscar_2d(image_file, x_start, y_start, x_latt, y_latt, coords,
                             xvec=20.0, yvec=20.0, xgrid=256, ygrid=256):
     '''
     Args:
@@ -153,7 +153,7 @@ def write_image_to_poscar_2d(image_file, x_start, y_start, x_latt, y_latt, coord
     '''
     with open (image_file.replace('png', 'vasp'), 'w+') as f :
         f.write(image_file + '\n')
-        f.write('1.0' + '\n')
+        f.write('1.0 \n')
         f.write(str(x_latt / xgrid * xvec) + ' 0.0  0.0 \n')    
         f.write('0.0  ' + str(y_latt / ygrid * yvec) + '  0.0 \n')
         f.write('0.0 0.0 15.0 \n')
